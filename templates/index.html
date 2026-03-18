@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NeuralFace · Emotion AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+  <!-- Animated background grid -->
+  <div class="bg-grid"></div>
+  <div class="scanline"></div>
+
+  <!-- Floating particles -->
+  <div class="particles" id="particles"></div>
+
+  <div class="app-wrapper">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <span class="logo-icon">⬡</span>
+        <span class="logo-text">Neural<span class="accent">Face</span></span>
+      </div>
+      <div class="header-status">
+        <span class="status-dot" id="statusDot"></span>
+        <span class="status-label" id="statusLabel">OFFLINE</span>
+      </div>
+    </header>
+
+    <!-- Main layout -->
+    <main class="main-grid">
+
+      <!-- Camera panel -->
+      <section class="panel camera-panel">
+        <div class="panel-header">
+          <span class="panel-tag">▶ LIVE FEED</span>
+          <span class="panel-corner">CAM:01</span>
+        </div>
+
+        <div class="video-wrap" id="videoWrap">
+          <div class="placeholder" id="placeholder">
+            <div class="placeholder-icon">
+              <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="40" cy="30" r="14" stroke="currentColor" stroke-width="2"/>
+                <path d="M10 70c0-16.569 13.431-30 30-30s30 13.431 30 30" stroke="currentColor" stroke-width="2"/>
+                <circle cx="40" cy="40" r="38" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4" opacity="0.4"/>
+              </svg>
+            </div>
+            <p class="placeholder-text">Camera feed inactive</p>
+            <p class="placeholder-sub">Click START to begin analysis</p>
+          </div>
+          <img id="videoFeed" src="" alt="Live feed" style="display:none;" />
+          <!-- Overlay corner brackets -->
+          <div class="corner tl"></div>
+          <div class="corner tr"></div>
+          <div class="corner bl"></div>
+          <div class="corner br"></div>
+          <!-- Scan line overlay -->
+          <div class="feed-scanline" id="feedScanline" style="display:none;"></div>
+        </div>
+
+        <div class="camera-controls">
+          <button class="btn btn-start" id="btnStart" onclick="startCamera()">
+            <span class="btn-icon">◉</span> START CAMERA
+          </button>
+          <button class="btn btn-stop" id="btnStop" onclick="stopCamera()" style="display:none;">
+            <span class="btn-icon">◼</span> STOP
+          </button>
+        </div>
+      </section>
+
+      <!-- Right panel: emotion + stats -->
+      <aside class="side-panel">
+
+        <!-- Emotion result card -->
+        <div class="panel emotion-card">
+          <div class="panel-header">
+            <span class="panel-tag">▶ EMOTION DETECTED</span>
+          </div>
+          <div class="emotion-display" id="emotionDisplay">
+            <div class="emotion-icon" id="emotionIcon">—</div>
+            <div class="emotion-label" id="emotionLabel">AWAITING INPUT</div>
+            <div class="emotion-detail" id="emotionDetail">Start the camera to detect emotions in real time.</div>
+          </div>
+        </div>
+
+        <!-- Confidence bars -->
+        <div class="panel confidence-panel">
+          <div class="panel-header">
+            <span class="panel-tag">▶ CONFIDENCE MATRIX</span>
+          </div>
+          <div class="confidence-bars" id="confidenceBars">
+            <div class="bar-row" data-emotion="Angry">
+              <span class="bar-label">ANGRY</span>
+              <div class="bar-track"><div class="bar-fill" style="width:0%"></div></div>
+              <span class="bar-val">0%</span>
+            </div>
+            <div class="bar-row" data-emotion="Disgust">
+              <span class="bar-label">DISGUST</span>
+              <div class="bar-track"><div class="bar-fill" style="width:0%"></div></div>
+              <span class="bar-val">0%</span>
+            </div>
+            <div class="bar-row" data-emotion="Fear">
+              <span class="bar-label">FEAR</span>
+              <div class="bar-track"><div class="bar-fill" style="width:0%"></div></div>
+              <span class="bar-val">0%</span>
+            </div>
+            <div class="bar-row" data-emotion="Happy">
+              <span class="bar-label">HAPPY</span>
+              <div class="bar-track"><div class="bar-fill" style="width:0%"></div></div>
+              <span class="bar-val">0%</span>
+            </div>
+            <div class="bar-row" data-emotion="Sad">
+              <span class="bar-label">SAD</span>
+              <div class="bar-track"><div class="bar-fill" style="width:0%"></div></div>
+              <span class="bar-val">0%</span>
+            </div>
+            <div class="bar-row" data-emotion="Surprise">
+              <span class="bar-label">SURPRISE</span>
+              <div class="bar-track"><div class="bar-fill" style="width:0%"></div></div>
+              <span class="bar-val">0%</span>
+            </div>
+            <div class="bar-row" data-emotion="Neutral">
+              <span class="bar-label">NEUTRAL</span>
+              <div class="bar-track"><div class="bar-fill" style="width:0%"></div></div>
+              <span class="bar-val">0%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- System info -->
+        <div class="panel sys-panel">
+          <div class="panel-header">
+            <span class="panel-tag">▶ SYSTEM</span>
+          </div>
+          <div class="sys-rows">
+            <div class="sys-row">
+              <span>MODEL</span><span class="accent">CNN · HDF5</span>
+            </div>
+            <div class="sys-row">
+              <span>DETECTOR</span><span class="accent">OpenCV Haar</span>
+            </div>
+            <div class="sys-row">
+              <span>CLASSES</span><span class="accent">7 Emotions</span>
+            </div>
+            <div class="sys-row">
+              <span>INPUT SIZE</span><span class="accent">48 × 48 px</span>
+            </div>
+            <div class="sys-row">
+              <span>FRAMES</span><span class="accent" id="frameCount">0</span>
+            </div>
+          </div>
+        </div>
+
+      </aside>
+    </main>
+
+    <footer class="footer">
+      NeuralFace · Real-Time Emotion Detection · Powered by TensorFlow + OpenCV
+    </footer>
+  </div>
+
+  <script src="/static/js/script.js"></script>
+</body>
+</html>
