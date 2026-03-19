@@ -13,7 +13,6 @@ A web-based application that detects human emotions in real-time using webcam in
 <img width="1831" height="854" alt="image" src="https://github.com/user-attachments/assets/5ea1d058-b3b8-49b3-908a-ceaa0018890d" />
 
 <img width="1568" height="788" alt="image" src="https://github.com/user-attachments/assets/acef84a7-6a54-4560-97da-51dacacac90d" />
->>>>>>> 082369fcea7db5ce7eef12068ff9ce52375222de
 
 
 ## 🚀 Features
