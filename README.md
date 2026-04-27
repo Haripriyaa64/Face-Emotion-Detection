@@ -3,17 +3,13 @@
 A web-based application that detects human emotions in real-time using webcam input and deep learning. The system captures live video, detects faces, and predicts emotions instantly.
 
 ---
-<<<<<<< HEAD
-##Preview 
-<img width="1831" height="900" alt="image" src="https://github.com/user-attachments/assets/93417dbb-c875-4c92-b8c1-7254b9b7ed03" />
 
-=======
+
 ## Demo Preview
 
 <img width="1831" height="854" alt="image" src="https://github.com/user-attachments/assets/5ea1d058-b3b8-49b3-908a-ceaa0018890d" />
 
 <img width="1568" height="788" alt="image" src="https://github.com/user-attachments/assets/acef84a7-6a54-4560-97da-51dacacac90d" />
->>>>>>> 082369fcea7db5ce7eef12068ff9ce52375222de
 
 
 ## 🚀 Features
@@ -54,8 +50,3 @@ A web-based application that detects human emotions in real-time using webcam in
 - **Dataset:** FER2013  
 
 ---
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 082369fcea7db5ce7eef12068ff9ce52375222de
