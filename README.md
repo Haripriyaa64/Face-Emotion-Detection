@@ -42,4 +42,3 @@ A web-based application that detects human emotions in real-time using webcam in
 - **Model:** CNN (`emotion_detection.hdf5`)  
 - **Dataset:** FER2013  
 
----
